@@ -61,9 +61,9 @@ Adafruit_SPIFlashBase::Adafruit_SPIFlashBase(
   _ind_active = true;
 }
 
-#if defined(ARDUINO_ARCH_ESP32) || defined(ARDUINO_ARCH_RP2040)
+#if defined(ARDUINO_ARCH_RP2040)
 
-// For ESP32 and RP2040 the SPI flash is already detected and configured
+// For RP2040 the SPI flash is already detected and configured
 // We could skip the initial sequence
 bool Adafruit_SPIFlashBase::begin(SPIFlash_Device_t const *flash_devs,
                                   size_t count) {
@@ -76,9 +76,7 @@ bool Adafruit_SPIFlashBase::begin(SPIFlash_Device_t const *flash_devs,
 
   _trans->begin();
 
-#if defined(ARDUINO_ARCH_ESP32)
-  _flash_dev = ((Adafruit_FlashTransport_ESP32 *)_trans)->getFlashDevice();
-#elif defined(ARDUINO_ARCH_RP2040)
+#if defined(ARDUINO_ARCH_RP2040)
   _flash_dev = ((Adafruit_FlashTransport_RP2040 *)_trans)->getFlashDevice();
 #endif
 
